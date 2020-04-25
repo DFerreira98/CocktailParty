@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Controler.ClickActivity"></activity>
+        <activity android:name=".Controler.SansAlcool"></activity>
+        <activity android:name=".Controler.ClickActivity" />
         <activity android:name=".Controler.AvecAlcool" />
         <activity android:name=".Controler.MainActivity">
             <intent-filter>
