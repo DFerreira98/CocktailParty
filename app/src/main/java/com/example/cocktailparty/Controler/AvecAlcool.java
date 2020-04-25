@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -13,7 +15,9 @@ import com.example.cocktailparty.Model.ListAdapter;
 import com.example.cocktailparty.R;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +34,8 @@ public class AvecAlcool extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ListAdapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    private SharedPreferences sharedPreferences;
+    private Gson gson;
 
 
     @Override
@@ -37,8 +43,18 @@ public class AvecAlcool extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_avec_alcool);
 
+        sharedPreferences = getSharedPreferences("Cocktail Party ", Context.MODE_PRIVATE);
 
-        makeApiCall();
+        gson = new GsonBuilder().setLenient().create();
+
+
+        List<Cocktail> cocktailList = donneeEnCache();
+        if(cocktailList != null){
+            showList(cocktailList);
+        }else{
+            makeApiCall();
+        }
+
 
     }
     private void showList(List<Cocktail> liste) {
@@ -55,9 +71,7 @@ public class AvecAlcool extends AppCompatActivity {
     }
 
     private void makeApiCall() {
-        Gson gson = new GsonBuilder()
-                .setLenient()
-                .create();
+
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -73,6 +87,7 @@ public class AvecAlcool extends AppCompatActivity {
             public void onResponse(Call<List<Cocktail>> call, Response<List<Cocktail>> response) {
                 if(response.isSuccessful()){
                     List<Cocktail> list = response.body();
+                    sauvegardeListe(list);
                     showList(list);
                     Toast.makeText(getApplicationContext(),"API SUCCESS",Toast.LENGTH_LONG).show();
                 }
@@ -90,4 +105,25 @@ public class AvecAlcool extends AppCompatActivity {
 
     }
 
+    private void sauvegardeListe(List<Cocktail> liste){
+        String jsonCocktail = gson.toJson(liste);
+
+
+        sharedPreferences.edit().putString("jsonCocktail",jsonCocktail).apply();
+        Toast.makeText(getApplicationContext(),"Liste sauvegardée",Toast.LENGTH_LONG).show();
+
+    }
+
+    private List<Cocktail> donneeEnCache(){
+
+        String jsonCocktail = sharedPreferences.getString("jsonCocktail",null);
+        if(jsonCocktail == null){
+            return null;
+        }else{
+            Type listeType = new TypeToken<List<Cocktail>>(){}.getType();
+            return gson.fromJson(jsonCocktail,listeType);
+        }
+
+
+    }
 }
