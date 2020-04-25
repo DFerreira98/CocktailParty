@@ -5,10 +5,10 @@ public class Cocktail {
     private String strDrink;
     private String strDrinkThumb;
     private String idDrink;
-    private String ingredients;
+    private String ingredient;
 
     public String getIngredients() {
-        return ingredients;
+        return ingredient;
     }
 
     public String getStrDrink() {
