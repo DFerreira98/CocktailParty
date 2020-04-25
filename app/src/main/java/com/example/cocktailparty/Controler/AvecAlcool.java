@@ -38,6 +38,7 @@ public class AvecAlcool extends AppCompatActivity {
         setContentView(R.layout.activity_avec_alcool);
 
         showList();
+        makeApiCall();
 
     }
     private void showList() {
