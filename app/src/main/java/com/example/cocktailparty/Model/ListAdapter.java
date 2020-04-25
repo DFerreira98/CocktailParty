@@ -1,10 +1,12 @@
 package com.example.cocktailparty.Model;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.bumptech.glide.Glide;
+import com.example.cocktailparty.Controler.ClickActivity;
 import com.example.cocktailparty.R;
 
 import java.util.List;
@@ -25,6 +28,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
+        RelativeLayout relative;
         TextView txtHeader;
         View layout;
 
@@ -33,6 +37,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             layout = v;
             txtHeader = v.findViewById(R.id.name);
             imageView = v.findViewById(R.id.image);
+            relative =v.findViewById(R.id.relative);
 
         }
     }
@@ -63,6 +68,18 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
         final Cocktail name = values.get(position);
         holder.txtHeader.setText(name.getStrDrink());
+        holder.relative.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(context, ClickActivity.class);
+                i.putExtra("strDrinkThumb",name.getStrDrinkThumb());
+                i.putExtra("ingredients",name.getIngredients());
+                context.startActivity(i);
+            }
+        });
+
+
+
         Glide.with(context).load(values.get(position).getStrDrinkThumb()).into(imageView);
 
 

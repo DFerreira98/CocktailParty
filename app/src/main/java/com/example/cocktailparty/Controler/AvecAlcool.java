@@ -5,8 +5,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.cocktailparty.Model.Cocktail;
@@ -86,7 +88,7 @@ public class AvecAlcool extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Cocktail>> call, Response<List<Cocktail>> response) {
                 if(response.isSuccessful()){
-                    List<Cocktail> list = response.body();
+                    final List<Cocktail> list = response.body();
                     sauvegardeListe(list);
                     showList(list);
                     Toast.makeText(getApplicationContext(),"API SUCCESS",Toast.LENGTH_LONG).show();
