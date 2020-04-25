@@ -14,22 +14,21 @@ import org.w3c.dom.Text;
 
 public class ClickActivity extends AppCompatActivity {
 
-    private ImageView imageView;
-    private TextView textView;
+
+    private TextView textViewIngredients;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_click);
 
-        imageView = findViewById(R.id.image);
-        textView = findViewById(R.id.ingredients);
+        textViewIngredients = findViewById(R.id.ingredients);
+       Intent i = getIntent();
 
-        Intent intent = getIntent();
+       String ingredients = i.getStringExtra("ingredients");
 
-        String ingredients = intent.getStringExtra("ingredients");
-        textView.setText("Ingrédients : "+ingredients);
+       textViewIngredients.setText("Ingredients : " + ingredients);
 
-        String image = intent.getStringExtra("strDrinkThumb");
-        Glide.with(this).load(image).into(imageView);
+
     }
 }

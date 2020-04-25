@@ -38,6 +38,7 @@ public class AvecAlcool extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private SharedPreferences sharedPreferences;
     private Gson gson;
+    private List<Cocktail> list;
 
 
     @Override
@@ -65,10 +66,8 @@ public class AvecAlcool extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-
-
-
         mAdapter = new ListAdapter(liste,getApplicationContext());
+
         recyclerView.setAdapter(mAdapter);
     }
 
@@ -88,7 +87,7 @@ public class AvecAlcool extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Cocktail>> call, Response<List<Cocktail>> response) {
                 if(response.isSuccessful()){
-                    final List<Cocktail> list = response.body();
+                     list = response.body();
                     sauvegardeListe(list);
                     showList(list);
                     Toast.makeText(getApplicationContext(),"API SUCCESS",Toast.LENGTH_LONG).show();
@@ -128,4 +127,6 @@ public class AvecAlcool extends AppCompatActivity {
 
 
     }
+
+  
 }

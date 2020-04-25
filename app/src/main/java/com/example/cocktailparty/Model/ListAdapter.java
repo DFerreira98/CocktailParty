@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -26,9 +27,12 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     private Context context;
 
 
+
+
+
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        RelativeLayout relative;
+
         TextView txtHeader;
         View layout;
 
@@ -37,7 +41,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             layout = v;
             txtHeader = v.findViewById(R.id.name);
             imageView = v.findViewById(R.id.image);
-            relative =v.findViewById(R.id.relative);
+
+
 
         }
     }
@@ -68,15 +73,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
         final Cocktail name = values.get(position);
         holder.txtHeader.setText(name.getStrDrink());
-        holder.relative.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(context, ClickActivity.class);
-                i.putExtra("strDrinkThumb",name.getStrDrinkThumb());
-                i.putExtra("ingredients",name.getIngredients());
-                context.startActivity(i);
-            }
-        });
+
 
 
 
