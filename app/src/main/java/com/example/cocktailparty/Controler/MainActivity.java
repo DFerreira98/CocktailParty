@@ -13,7 +13,7 @@ import com.example.cocktailparty.R;
 public class MainActivity extends AppCompatActivity {
 
     private Button avecAlcool;
-    //private Button sansAlcool;
+    private Button sansAlcool;
 
 
     @Override
@@ -22,12 +22,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         avecAlcool = findViewById(R.id.avec_alcool);
-        //sansAlcool = findViewById(R.id.sans_alcool);
+        sansAlcool = findViewById(R.id.sans_alcool);
 
         avecAlcool.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View view) {
                 cliqueAlcool();
+            }
+        });
+        sansAlcool.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cliqueSansAlcool();
             }
         });
 
@@ -37,6 +43,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void cliqueAlcool(){
         Intent i = new Intent (getApplicationContext(), AvecAlcool.class);
+        startActivity(i);
+        finish();
+    }
+
+    private void cliqueSansAlcool(){
+        Intent i = new Intent (getApplicationContext(), SansAlcool.class);
         startActivity(i);
         finish();
     }

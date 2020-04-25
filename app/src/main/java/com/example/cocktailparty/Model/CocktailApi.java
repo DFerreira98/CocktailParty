@@ -9,4 +9,7 @@ public interface CocktailApi {
 
     @GET("api.json")
     Call<List<Cocktail>> getCocktail();
+
+    @GET("apiSansAlcool.json")
+    Call<List<Cocktail>> getCocktailSansAlcool();
 }
