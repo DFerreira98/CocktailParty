@@ -7,6 +7,6 @@ import retrofit2.http.GET;
 
 public interface CocktailApi {
 
-    @GET("")
+    @GET("api.json")
     Call<List<Cocktail>> getCocktail();
 }

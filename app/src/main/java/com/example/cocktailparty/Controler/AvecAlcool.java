@@ -25,7 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AvecAlcool extends AppCompatActivity {
 
-    private final String BASE_URL = "";
+    private final String BASE_URL = "https://raw.githubusercontent.com/DFerreira98/CocktailParty/master/app/src/main/java/com/example/cocktailparty/";
 
     private RecyclerView recyclerView;
     private ListAdapter mAdapter;
