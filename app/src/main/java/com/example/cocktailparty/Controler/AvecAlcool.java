@@ -37,11 +37,11 @@ public class AvecAlcool extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_avec_alcool);
 
-        showList();
+
         makeApiCall();
 
     }
-    private void showList() {
+    private void showList(List<Cocktail> liste) {
         recyclerView =  findViewById(R.id.avecAlcool_recyclerView);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
@@ -49,11 +49,8 @@ public class AvecAlcool extends AppCompatActivity {
 
 
 
-        List<String> input = new ArrayList<>();
-        for (int i = 0; i < 50; i++) {
-            input.add("Alcool " + i);
-        }
-        mAdapter = new ListAdapter(input);
+
+        mAdapter = new ListAdapter(liste,getApplicationContext());
         recyclerView.setAdapter(mAdapter);
     }
 
@@ -76,6 +73,7 @@ public class AvecAlcool extends AppCompatActivity {
             public void onResponse(Call<List<Cocktail>> call, Response<List<Cocktail>> response) {
                 if(response.isSuccessful()){
                     List<Cocktail> list = response.body();
+                    showList(list);
                     Toast.makeText(getApplicationContext(),"API SUCCESS",Toast.LENGTH_LONG).show();
                 }
                 else{

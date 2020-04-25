@@ -1,20 +1,26 @@
 package com.example.cocktailparty.Model;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.bumptech.glide.Glide;
 import com.example.cocktailparty.R;
 
 import java.util.List;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
-    private List<String> values;
+    private List<Cocktail> values;
+
+    private ImageView imageView;
+    private Context context;
 
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -26,23 +32,17 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             super(v);
             layout = v;
             txtHeader = v.findViewById(R.id.name);
+            imageView = v.findViewById(R.id.image);
 
         }
     }
 
-    public void add(int position, String item) {
-        values.add(position, item);
-        notifyItemInserted(position);
-    }
-
-    private void remove(int position) {
-        values.remove(position);
-        notifyItemRemoved(position);
-    }
 
 
-    public ListAdapter(List<String> Test) {
+
+    public ListAdapter(List<Cocktail> Test,Context context) {
         values = Test;
+        this.context=context;
     }
 
 
@@ -53,6 +53,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View v = inflater.inflate(R.layout.row_layout, parent, false);
 
+
         return new ViewHolder(v);
     }
 
@@ -60,8 +61,9 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
 
-        final String name = values.get(position);
-        holder.txtHeader.setText(name);
+        final Cocktail name = values.get(position);
+        holder.txtHeader.setText(name.getStrDrink());
+        Glide.with(context).load(values.get(position).getStrDrinkThumb()).into(imageView);
 
 
     }
