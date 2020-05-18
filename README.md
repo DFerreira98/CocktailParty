@@ -15,8 +15,8 @@ Cette application codée en java affiche des cocktail et les ingrédients néces
 
 # Fonctionnalités :
 
-Premier écran
-
+# Premier écran
+<img src="Images/Accueil.jpg" width="200" >
 # Ecran liste 
 <img src="Images/Liste%20cocktails.jpg" width="200" >
 
